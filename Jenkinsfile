@@ -5,7 +5,7 @@ pipeline {
     stages{
         stage("Code"){
            steps{
-                git url: "https://github.com/MrMarga/emartapp.git", branch: "master"
+                git url: "https://github.com/MrMarga/emartapp.git", branch: "main"
             }
         }
         stage("Build & Test"){
