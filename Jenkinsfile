@@ -3,30 +3,28 @@ pipeline {
     environment{DOCKERHUB_CREDENTIALS = credentials('docker')}
     
     stages{
-        
         stage("Code"){
-            steps{
-                git url: "https://github.com/MrMarga/reddit.git", branch: "main"
+           steps{
+                git url: "https://github.com/MrMarga/todo.git", branch: "master"
             }
         }
         stage("Build & Test"){
-            steps{
-                 sh "docker-compose build"
-                 sh "docker build . -t emart-new"
-                 
+           steps{
+                sh "docker build . -t emart-new"
+                sh "docker-compose buid ."
             }
         }
         stage('Push to Docker Hub') {
-            steps {
-                 echo "Pushing the images to docker hub"
+           steps {
+                 echo "Pushing the image to docker hub"
                     sh "docker tag emart-new $DOCKERHUB_CREDENTIALS_USR/emart-new:latest"
                     sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                    sh "docker push $DOCKERHUB_CREDENTIALS_USR/emart-new:latest"
-                     } 
+                    sh "docker push $DOCKERHUB_CREDENTIALS_USR/emart:latest"
+                     }
             }
 
         stage("Deploy"){
-            steps{
+           steps{
                 sh "docker-compose up -d "
             }
         }
