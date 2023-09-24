@@ -25,7 +25,7 @@ pipeline {
 
         stage("Deploy"){
            steps{
-                sh "docker-compose up -d "
+                sh "docker run -dit -p 9000:9000 mrmarga/emart-newest:latest"
             }
         }
     }
