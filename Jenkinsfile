@@ -11,7 +11,6 @@ pipeline {
         stage("Build & Test"){
            steps{
                 sh "docker build -t emart-new ."
-                sh "docker-compose build ."
             }
         }
         stage('Push to Docker Hub') {
