@@ -10,7 +10,7 @@ pipeline {
         }
         stage("Build & Test"){
            steps{
-                sh "docker build -t emart-new ."
+                sh "docker build . -t emart-new "
                 sh "docker-compose build "
             }
         }
@@ -19,7 +19,7 @@ pipeline {
                  echo "Pushing the image to docker hub"
                     sh "docker tag emart-new $DOCKERHUB_CREDENTIALS_USR/emart-new:latest"
                     sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-                    sh "docker push $DOCKERHUB_CREDENTIALS_USR/emart:latest"
+                    sh "docker push $DOCKERHUB_CREDENTIALS_USR/emart-new:latest"
                      }
             }
 
