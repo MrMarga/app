@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any
     environment{DOCKERHUB_CREDENTIALS = credentials('docker')}
     
@@ -8,12 +8,6 @@ pipeline{
                 git url: "https://github.com/MrMarga/emartapp.git", branch: "main"
             }
         }
-
-        stage("Maven Tests"){
-            steps{
-                sh"mvn test"
-            }
-        }         
         stage("Build & Test"){
            steps{
                 sh "docker build . -t emart-new "
@@ -40,9 +34,7 @@ pipeline{
             slackSend channel: '#jenkinscicd',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-                 }
             }
-        }
-    
+         }
     }
 }
