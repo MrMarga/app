@@ -11,23 +11,27 @@ pipeline{
             steps {
                 script {
                     git branch: 'main',
-                        credentialsId: 'Credential ID',
-                        url: 'https://github.com/MrMarga/app.git'
+                    credentialsId: 'Credential ID',
+                    url: 'https://github.com/MrMarga/app.git'
                 }
             }
         }
     
        stage('Test'){
-           steps {
+            steps {
+              script{
                 sh "mvn test"
             }
-
+          }
         }
 
         stage('Checkstyle Analysis'){
             steps {
+             script{
             sh "mvn checkstyle:checkstyle"
             }
         }
+      
     }
+   }
 }
