@@ -1,4 +1,4 @@
-pipeline {
+pipeline{
     agent any
     environment{DOCKERHUB_CREDENTIALS = credentials('docker')}
     
@@ -31,7 +31,8 @@ pipeline {
 
         stage("Deploy"){
            steps{
-                sh "docker-compose up -d   "
+                sh "docker-compose up -d   "}
+                }
 
         post {
         always {
@@ -42,5 +43,6 @@ pipeline {
                  }
             }
         }
+    
     }
 }
